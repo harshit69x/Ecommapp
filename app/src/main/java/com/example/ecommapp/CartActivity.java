@@ -1,39 +1,73 @@
 package com.example.ecommapp;
 
-import android.os.Bundle;
+// ✅ Correct imports
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CartActivity extends AppCompatActivity {
+// ✅ Use your OWN Product class (not Google Analytics one)
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
-    TextView cartText;
+    ArrayList<Product> list;
+    Context context;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+    public ProductAdapter(Context context, ArrayList<Product> list) {
+        this.context = context;
+        this.list = list;
+    }
 
-        cartText = findViewById(R.id.cartText);
+    // ✅ ViewHolder class
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView name, price;
+        Button addBtn;
 
-        // ✅ Get data from intent
-        ArrayList<String> cartItems = getIntent().getStringArrayListExtra("cartItems");
-
-        // ✅ Display items
-        if (cartItems != null && !cartItems.isEmpty()) {
-
-            StringBuilder items = new StringBuilder();
-
-            for (String item : cartItems) {
-                items.append(item).append("\n");
-            }
-
-            cartText.setText(items.toString());
-
-        } else {
-            cartText.setText("Cart is empty");
+        public ViewHolder(View view) {
+            super(view);
+            image = view.findViewById(R.id.productImage);
+            name = view.findViewById(R.id.productName);
+            price = view.findViewById(R.id.productPrice);
+            addBtn = view.findViewById(R.id.addBtn);
         }
+    }
+
+    // ✅ Create View
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.item_product, parent, false);
+        return new ViewHolder(view);
+    }
+
+    // ✅ Bind data to views
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Product p = list.get(position);
+
+        holder.name.setText(p.name);
+        holder.price.setText("₹" + p.price);
+        holder.image.setImageResource(p.image);
+
+        holder.addBtn.setOnClickListener(v -> {
+            Cart.items.add(p.name);
+            Toast.makeText(context, p.name + " added to cart", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    // ✅ Total items
+    @Override
+    public int getItemCount() {
+        return list.size();
     }
 }

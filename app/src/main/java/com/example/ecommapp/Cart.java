@@ -1,7 +1,5 @@
 package com.example.ecommapp;
 
-
-
 import java.util.ArrayList;
 
 public class Cart {
