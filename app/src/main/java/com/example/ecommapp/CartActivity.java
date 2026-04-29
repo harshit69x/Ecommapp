@@ -1,39 +1,26 @@
 package com.example.ecommapp;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class CartActivity extends AppCompatActivity {
 
-    TextView cartText;
+    RecyclerView recyclerView;
+    CartAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        cartText = findViewById(R.id.cartText);
+        recyclerView = findViewById(R.id.recyclerCart);
 
-        // ✅ Get data from intent
-        ArrayList<String> cartItems = getIntent().getStringArrayListExtra("cartItems");
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // ✅ Display items
-        if (cartItems != null && !cartItems.isEmpty()) {
-
-            StringBuilder items = new StringBuilder();
-
-            for (String item : cartItems) {
-                items.append(item).append("\n");
-            }
-
-            cartText.setText(items.toString());
-
-        } else {
-            cartText.setText("Cart is empty");
-        }
+        adapter = new CartAdapter(this, Cart.items);
+        recyclerView.setAdapter(adapter);
     }
 }

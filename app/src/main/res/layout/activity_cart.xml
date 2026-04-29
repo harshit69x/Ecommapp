@@ -1,62 +1,18 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
-
-    <LinearLayout
+    android:orientation="vertical"
+    android:padding="16dp">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/cartText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Cart"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#212121"
-            android:layout_marginBottom="16dp"/>
-
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:id="@+id/cartText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cart Items"
-                    android:backgroundTint="@color/white"
-                    android:textSize="16sp"
-                    android:textColor="#333333"
-                    android:lineSpacingExtra="4dp"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-        <Button
-            android:id="@+id/checkoutBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Proceed to Checkout"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#6200EE"
-            android:layout_marginTop="20dp"/>
-
-    </LinearLayout>
-</ScrollView>
+        android:text="Cart Items"
+        android:textSize="18sp"/>
+</LinearLayout>
