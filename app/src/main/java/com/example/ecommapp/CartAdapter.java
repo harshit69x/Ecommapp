@@ -1,9 +1,7 @@
 package com.example.ecommapp;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,19 +11,21 @@ import java.util.ArrayList;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<String> list;
+    ArrayList<CartItem> list;
 
-    public CartAdapter(Context context, ArrayList<String> list) {
+    public CartAdapter(Context context, ArrayList<CartItem> list) {
         this.context = context;
         this.list = list;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView itemName;
+        TextView name, price, quantity;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.cartItemName);
+            name = itemView.findViewById(R.id.cartItemName);
+            price = itemView.findViewById(R.id.cartItemPrice);
+            quantity = itemView.findViewById(R.id.cartItemQuantity);
         }
     }
 
@@ -38,7 +38,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemName.setText(list.get(position));
+        CartItem item = list.get(position);
+
+        holder.name.setText(item.product.name);
+        holder.price.setText("₹" + item.product.price);
+        holder.quantity.setText("Qty: " + item.quantity);
     }
 
     @Override

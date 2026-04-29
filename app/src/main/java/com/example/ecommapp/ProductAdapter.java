@@ -19,7 +19,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         this.context = context;
         this.list = list;
     }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name, price;
@@ -50,9 +49,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.image.setImageResource(p.image);
 
         holder.addBtn.setOnClickListener(v -> {
-            Cart.items.add(p.name);
+
+            boolean found = false;
+
+            for (CartItem item : Cart.items) {
+                if (item.product.name.equals(p.name)) {
+                    item.quantity++;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                Cart.items.add(new CartItem(p));
+            }
+
             Toast.makeText(context, p.name + " added", Toast.LENGTH_SHORT).show();
-        });
+        });;
     }
 
     @Override
